@@ -15,5 +15,5 @@ To install the package from github, simply use the `install_github()` function f
 install.packages("devtools")
 devtools::install_github("miraclethief/hw4")
 ```
-Authorship
+#Authorship
 Created by Ruoxuan Mao, mainly for bios625 course.
