@@ -1,0 +1,145 @@
+---
+title: "my-vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(mypackage)
+```
+
+Example 1: Multiple Linear Regression
+To fit a multiple linear regression model, just input a formula and dataset to the fit function 'mlr'. This produces a list containing the following objects:
+* `Estimate`: the estimated coefficients(betahat)
+* `Std. Error`: standard error of betahat
+* `t value`: Inference: t statistic for H0: beta=0
+* `Pr(>|t|)`: Inference: corresponding p-value for H0: beta=0
+```{r}
+data(mtcars)
+attach(mtcars)
+mlr(model.matrix(wt ~ mpg + cyl), as.vector(wt))
+detach(mtcars)
+```
+Compare results to base functions:
+Test our results to check whether they correspond with output from function from R base:
+
+```{r}
+data(mtcars)
+attach(mtcars)
+m1 <- lm(wt ~ mpg + cyl, data = mtcars)
+m2 <- mlr(model.matrix(wt ~ mpg + cyl), as.vector(wt))
+sm1 <- summary(m1)
+all.equal(m2, sm1$coefficients)
+detach(mtcars)
+```
+Compare speed to base functions:
+Compare`mlr()` to `lm()` by using the **bench** package. 
+However the output shows that `lm()` function is faster on average.
+```{r}
+library(bench)
+attach(mtcars)
+m1 <- lm(wt ~ mpg + cyl, data = mtcars)
+m2 <- mlr(model.matrix(wt ~ mpg + cyl), as.vector(wt))
+sm1 <- summary(m1)
+detach(mtcars)
+bench::mark(
+  m2, sm1$coefficients
+)
+```
+Example 2: Ftest for Simple Linear Regression under H0: beta1=0
+To conduct a Ftest for Simple Linear Regression, just fit function 'Ftest'. This produces a list containing the following objects:
+* `Sum Sq`: Regression sum of squares
+* `Mean Sq`: SSE/dfR
+* `F value`: Inference: F statistic for H0: beta1=0
+* `Pr(>F)`: Inference: corresponding p-value for H0: beta1=0
+* `R-squared`: reflects fit of model
+* `SSE`: Error sum of squares
+* `MSE`: SSE/dfE
+
+```{r}
+data(mtcars)
+attach(mtcars)
+Ftest(mpg,wt)
+detach(mtcars)
+```
+
+Compare results to base functions:
+Test our results to check whether they correspond with output from function from R base:
+```{r}
+data(mtcars)
+attach(mtcars)
+SeqSS = data.frame(anova(lm(wt ~ mpg)))
+Ftest1 <- Ftest(mpg, wt)
+m5<-summary(lm(wt~mpg))
+Ftest2 <-
+  cbind(SeqSS["mpg", "Sum.Sq"], SeqSS["mpg", "Mean.Sq"], SeqSS["mpg", "F.value"],
+        SeqSS["mpg", "Pr..F."], m5$r.squared, SeqSS["Residuals", "Sum.Sq"], SeqSS["Residuals", "Mean.Sq"])
+
+all.equal(Ftest1[1:7], Ftest2[1:7])
+detach(mtcars)
+```
+Compare speed to base functions:
+Compare`Ftest()` to `anova(lm())` by using the **bench** package. 
+However the output shows that the speed of two function are very close on average.
+```{r}
+library(bench)
+data(mtcars)
+attach(mtcars)
+SeqSS = data.frame(anova(lm(wt ~ mpg)))
+Ftest1 <- Ftest(mpg, wt)
+m5<-summary(lm(wt~mpg))
+Ftest2 <-
+  cbind(SeqSS["mpg", "Sum.Sq"], SeqSS["mpg", "Mean.Sq"], SeqSS["mpg", "F.value"],
+        SeqSS["mpg", "Pr..F."], m5$r.squared, SeqSS["Residuals", "Sum.Sq"], SeqSS["Residuals", "Mean.Sq"])
+bench::mark(Ftest1[1:7], Ftest2[1:7])
+detach(mtcars)
+```
+
+Example 3: Realize famous KMP algorithm to find times of appearance of x in y, especially for quite long vectors matching(including 'overlap' parts)
+```{r}
+kmp(c(1,2),c(1,2,1,2,3))
+kmp(c(1,1),c(1,1,1,1,1))
+```
+Compare results to base functions:
+Test our results to check whether they correspond with output from function from R base(identical()):
+```{r}
+match_vec <- function(x, y) {
+  m <- 0
+  for (i in 1:c(length(y) - length(x) + 1)) {
+    if (identical(x, y[i:c(length(x) + i - 1)]) == TRUE) {
+      m <- m + 1
+    }
+  }
+  return(m)
+}
+all.equal(kmp(c(1, 2), rep(c(1, 2), 1000)), match_vec(c(1, 2), rep(c(1, 2), 1000)))
+```
+
+Compare speed to base functions:
+Compare`kmp()` to `identical()` by using the **bench** package. 
+However the output shows that `kmp()` function is much faster on average.
+```{r}
+library(bench)
+match_vec <- function(x, y) {
+  m <- 0
+  for (i in 1:c(length(y) - length(x) + 1)) {
+    if (identical(x, y[i:c(length(x) + i - 1)]) == TRUE) {
+      m <- m + 1
+    }
+  }
+  return(m)
+}
+bench::mark(kmp(c(1, 2), rep(c(1, 2), 100000)), match_vec(c(1, 2), rep(c(1, 2), 100000)))
+```
+
+

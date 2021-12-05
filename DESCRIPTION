@@ -4,7 +4,7 @@ Title: 625HW4
 Version: 0.1.0
 Author: Ruoxuan Mao
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: Motivated by 625HW1, I realize the KMP algorithm is a string searching method especially for quite long vector matching which is the kmp function in mypackage.
+Description: Statistical and coumputational knowledge I learnt from first semester in biostat625 and biostat650.(multiple regression, F-test of SLR, KMP-method) 
     Use four spaces when indenting paragraphs within the Description.
 License: GPL-3
 Encoding: UTF-8

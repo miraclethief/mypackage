@@ -2,7 +2,7 @@
 % Please edit documentation in R/mypackage.R
 \name{Ftest}
 \alias{Ftest}
-\title{Fit a multiple linear regression}
+\title{Conduct a Ftest for SLR under H0:beta1=0}
 \usage{
 Ftest(X, Y)
 }
@@ -12,13 +12,14 @@ Ftest(X, Y)
 \item{Y}{a vector}
 }
 \value{
-the parameter estimates from a multiple regression model
+Ftest value
 }
 \description{
-Fit a multiple linear regression
+Conduct a Ftest for SLR under H0:beta1=0
 }
 \examples{
 data(mtcars)
 attach(mtcars)
 Ftest(mpg,wt)
+detach(mtcars)
 }

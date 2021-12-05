@@ -21,4 +21,5 @@ Fit a multiple linear regression
 data(mtcars)
 attach(mtcars)
 mlr(model.matrix(wt ~ mpg + cyl), as.vector(wt))
+detach(mtcars)
 }

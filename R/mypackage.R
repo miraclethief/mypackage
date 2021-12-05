@@ -6,6 +6,7 @@
 #' data(mtcars)
 #' attach(mtcars)
 #' mlr(model.matrix(wt ~ mpg + cyl), as.vector(wt))
+#' detach(mtcars)
 #' @import stats
 #' @export
 
@@ -46,14 +47,15 @@ mlr <- function(X, Y) {
   }
 }
 
-#' Fit a multiple linear regression
+#' Conduct a Ftest for SLR under H0:beta1=0
 #' @param X a vector
 #' @param Y a vector
-#' @return  the parameter estimates from a multiple regression model
+#' @return  Ftest value
 #' @examples
 #' data(mtcars)
 #' attach(mtcars)
 #' Ftest(mpg,wt)
+#' detach(mtcars)
 #' @import stats
 #' @export
 
@@ -75,9 +77,8 @@ Ftest <- function(X, Y) {
   R_squared = SSR / (SSR + SSE) # R-squared
   result =
     cbind(
-      'Df' = 1,
       'Sum Sq' = SSR,
-      'SSR' = SSR,
+      'Mean Sq' = MSR,
       'F value' = Fstat,
       'Pr(>F)' = pvalue,
       'R-squared' = R_squared,
