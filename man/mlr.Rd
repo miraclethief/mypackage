@@ -18,7 +18,7 @@ the parameter estimates from a multiple regression model
 Fit a multiple linear regression
 }
 \examples{
-import data
 data(mtcars)
+attach(mtcars)
 mlr(model.matrix(wt ~ mpg + cyl), as.vector(wt))
 }

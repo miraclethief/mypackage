@@ -19,5 +19,6 @@ Fit a multiple linear regression
 }
 \examples{
 data(mtcars)
+attach(mtcars)
 Ftest(mpg,wt)
 }

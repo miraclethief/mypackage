@@ -3,8 +3,8 @@
 #' @param y outcome
 #' @return  the parameter estimates from a multiple regression model
 #' @examples
-#' import data
 #' data(mtcars)
+#' attach(mtcars)
 #' mlr(model.matrix(wt ~ mpg + cyl), as.vector(wt))
 #' @export
 
@@ -51,6 +51,7 @@ mlr <- function(X, Y) {
 #' @return  the parameter estimates from a multiple regression model
 #' @examples
 #' data(mtcars)
+#' attach(mtcars)
 #' Ftest(mpg,wt)
 #' @export
 
