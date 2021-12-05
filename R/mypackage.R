@@ -1,11 +1,12 @@
 #' Fit a multiple linear regression
-#' @param x design matrix
-#' @param y outcome
+#' @param X design matrix
+#' @param Y outcome
 #' @return  the parameter estimates from a multiple regression model
 #' @examples
 #' data(mtcars)
 #' attach(mtcars)
 #' mlr(model.matrix(wt ~ mpg + cyl), as.vector(wt))
+#' @import stats
 #' @export
 
 mlr <- function(X, Y) {
@@ -46,13 +47,14 @@ mlr <- function(X, Y) {
 }
 
 #' Fit a multiple linear regression
-#' @param x a vector
-#' @param y a vector
+#' @param X a vector
+#' @param Y a vector
 #' @return  the parameter estimates from a multiple regression model
 #' @examples
 #' data(mtcars)
 #' attach(mtcars)
 #' Ftest(mpg,wt)
+#' @import stats
 #' @export
 
 Ftest <- function(X, Y) {
@@ -119,7 +121,7 @@ kmp <- function(x, y) {
     n = 1
     leny = length(y)
 
-        while (n <= leny) {
+    while (n <= leny) {
       if (m == lenx) {
         k = k + 1
         m = N[m]
@@ -139,4 +141,3 @@ kmp <- function(x, y) {
     return(k)
   }
 }
-

@@ -7,9 +7,9 @@
 Ftest(X, Y)
 }
 \arguments{
-\item{x}{a vector}
+\item{X}{a vector}
 
-\item{y}{a vector}
+\item{Y}{a vector}
 }
 \value{
 the parameter estimates from a multiple regression model

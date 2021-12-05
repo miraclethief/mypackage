@@ -7,9 +7,9 @@
 mlr(X, Y)
 }
 \arguments{
-\item{x}{design matrix}
+\item{X}{design matrix}
 
-\item{y}{outcome}
+\item{Y}{outcome}
 }
 \value{
 the parameter estimates from a multiple regression model

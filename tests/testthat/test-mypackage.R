@@ -9,7 +9,6 @@ test_that("coefficients are accurate", {
   expect_equal(m2,sm1$coefficients)
 })
 
-
 match_vec <- function(x,y){
   m <- 0
   for(i in 1:c(length(y)-length(x)+1)) {
