@@ -1,6 +1,7 @@
 # mypackage
   <!-- badges: start -->
   [![R-CMD-check](https://github.com/miraclethief/hw4/workflows/R-CMD-check/badge.svg)](https://github.com/miraclethief/hw4/actions)
+  [![codecov](https://codecov.io/gh/miraclethief/mypackage/branch/main/graph/badge.svg?token=C46ZMRM4L2)](https://codecov.io/gh/miraclethief/mypackage)
   <!-- badges: end -->
 
 R package for multiple linear regression, F-test for Simple linear regression and vector matching
